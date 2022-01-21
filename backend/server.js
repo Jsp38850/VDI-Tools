@@ -1,6 +1,8 @@
-const http = require("http");
-const app = require("./app");
+//Création du Serveur
+const http = require("http"); //utilisation de http pour transférer des données via le protocole de transfert hypertexte
+const app = require("./app"); //Import app.js
 
+/***Normaliser un port pour s'assurer que le port fourni est un nombre sinon définir en false.***/
 const normalizePort = (val) => {
   const port = parseInt(val, 10);
 
@@ -12,9 +14,12 @@ const normalizePort = (val) => {
   }
   return false;
 };
+
+/***Réglage du port à 3000 ***/
 const port = normalizePort(process.env.PORT || "3000");
 app.set("port", port);
 
+/***Traitement des erreurs en cas de dysfonctionnement ***/
 const errorHandler = (error) => {
   if (error.syscall !== "listen") {
     throw error;
@@ -35,8 +40,10 @@ const errorHandler = (error) => {
   }
 };
 
+// Utilisation de app.js pour importer les informations de l'application
 const server = http.createServer(app);
 
+//Erreur en cas de problème lors du démarrage du serveur
 server.on("error", errorHandler);
 server.on("listening", () => {
   const address = server.address();
